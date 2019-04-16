@@ -1,2 +1,4 @@
 ---
 # tasks file for container-influxdb
+- import_tasks: influxdb.yml
+  become: true
