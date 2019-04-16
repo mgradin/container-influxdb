@@ -1,0 +1,29 @@
+---
+- name: Create influxdb data directory
+  file: 
+    path: "{{ VAR_INFLUXDB_DATA_DIR }}"
+    recurse: yes
+    state: directory
+
+- name: Create influxdb config directory
+  file:
+    path: "{{ VAR_INFLUXDB_CONFIG_DIR }}"
+    recurse: yes
+    state: directory
+
+- name: Start influxdb container
+  docker_container:
+    name: influxdb
+    image: influxdb:latest
+    pull: yes
+    state: started
+    labels:
+      traefik.backend=influxdb
+      "traefik.frontend.rule=Host:{{ VAR_INFLUXDB_URL }}"
+      traefik.port=8086
+      traefik.enable=true
+    volumes:
+    - "{{ VAR_INFLUXDB_DATA_DIR }}:/var/lib/influxdb:z"
+    - "{{ VAR_INFLUXDB_CONFIG_DIR }}:/etc/influxdb:z"
+    restart_policy: unless-stopped
+
