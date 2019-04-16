@@ -2,4 +2,4 @@
 # defaults file for container-influxdb
 VAR_INFLUXDB_DATA_DIR: /opt/influxdb/data
 VAR_INFLUXDB_CONFIG_DIR: /opt/influxdb/config
-
+VAR_INFLUXDB_URL: influxdb.example.com
